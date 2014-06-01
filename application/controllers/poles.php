@@ -35,7 +35,7 @@ class Poles extends CI_Controller {
 				$parent = $this->input->post('parent');
 
 				$this->polesManager->poles_add($nom, $parent);
-				redirect(base_url());
+				redirect(site_url(array('welcome', 'index', $this->polesManager->poles_get_last_id())));
 			}
 
 			$this->data['navbar_display'] = false;
@@ -63,7 +63,7 @@ class Poles extends CI_Controller {
 			// Rules on the different datas submitted to avoid security exploits
 			$this->form_validation->set_rules('nom', '"Nom"', 'trim|required|encode_php_tags|xss_clean');
 			$this->form_validation->set_rules('parent', '"Parent"', 'trim|required|encode_php_tags|xss_clean');
-			$this->form_validation->set_rules('id', '"Parent"', 'trim|required|encode_php_tags|xss_clean');
+			$this->form_validation->set_rules('id', '"Id"', 'trim|required|encode_php_tags|xss_clean');
 			if( $this->form_validation->run() )
 			{
 				$nom = $this->input->post('nom');
@@ -71,7 +71,7 @@ class Poles extends CI_Controller {
 				$id = $this->input->post('id');
 
 				$this->polesManager->poles_edit($id, $nom, $parent);
-				redirect(base_url());
+				redirect(site_url(array('welcome', 'index', $id)));
 			}
 
 			$this->data['navbar_display'] = false;
@@ -93,9 +93,14 @@ class Poles extends CI_Controller {
 		else
 		{
 			$this->load->model('poles_model', 'polesManager');
+			$this->load->model('ind_noms_model', 'indNomsManager');
 			
-			$this->polesManager->poles_del($id);
-			redirect(base_url());
+			if($this->indNomsManager->ind_get_list_nb($id) <= 0) {
+				$parent = $this->polesManager->poles_get_info($id)->parent;
+				$this->polesManager->poles_del($id);
+				redirect(site_url(array('welcome', 'index', $parent)));
+			}
+			redirect(site_url(array('welcome', 'index', $id)));
 		}
 	}
 }

@@ -12,12 +12,28 @@
 
 								<ul>
 									<?php foreach($sous_poles as $pole) { ?>
-									<li><a href="<?php echo site_url(array('welcome', 'index', $pole->id)); ?>"><?php echo_var($pole->nom) ?></a></li>
+									<li><a href="<?php echo site_url(array('welcome', 'index', $pole->id)); ?>"><?php echo_var($pole->nom); ?></a></li>
 									<?php } ?>
 								</ul>
 							<?php } ?>
 						</div>
 					</div>
+
+					<?php if(isset($ind_noms) && $ind_noms != NULL) { ?>
+					<div class="container-fluid">
+						<div class="row-fluid">
+								<h5>Indicateurs</h5>
+
+								<ul>
+									<?php foreach($ind_noms as $ind) { ?>
+									<li><a href="<?php echo site_url(array('ind', 'del', $ind->id)); ?>"><i class="glyphicon glyphicon-remove"></i></a> 
+										<a href="<?php echo site_url(array('ind', 'edit', $ind->id)); ?>"><i class="glyphicon glyphicon-pencil"></i></a> 
+										<a href="<?php echo site_url(array('ind', 'display', $ind->id)); ?>"><?php echo_var($ind->nom) ?></a></li>
+									<?php } ?>
+								</ul>
+						</div>
+					</div>
+					<?php } ?>
 				</div>
 				<br/>
 				<br/>

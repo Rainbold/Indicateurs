@@ -4,6 +4,19 @@ class Poles_model extends CI_Model
 {
 	protected $table_pole = 'ai_poles';
 
+	public function poles_get_last_id()
+	{
+		$sql = "SELECT id 
+				FROM ".$this->table_pole."
+				ORDER BY id DESC";
+		$query = $this->db->query($sql, $data);
+		$res = $query->row()->id;
+		if($res != NULL)
+			return $res;
+		else
+			return -1;
+	}
+
 	public function poles_get_info($id)
 	{
 		$sql = "SELECT * 

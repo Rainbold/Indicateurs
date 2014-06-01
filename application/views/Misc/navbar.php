@@ -3,7 +3,7 @@
 				<div class="row-fluid pull-right">
 					<div class="col-md-12">
 						<a class="btn btn-danger" href="<?php echo site_url(array('poles', 'add', $this->uri->segment(3))); ?>">+ Pôle</a>
-						<button class="btn btn-danger">+ Indicateur</button>
+						<a class="btn btn-danger" href="<?php echo site_url(array('ind', 'add', $this->uri->segment(3))); ?>">+ Indicateur</a>
 						<button class="btn btn-danger">+ Courbe</button>
 					</div>
 				</div>

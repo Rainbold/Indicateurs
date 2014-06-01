@@ -24,6 +24,7 @@ class Welcome extends CI_Controller {
 		$this->load->library('session');
 
 		$this->load->model('poles_model', 'polesManager');
+		$this->load->model('ind_noms_model', 'indNomsManager');
 
 		$formSubmit = $this->input->post('submitForm');
 
@@ -67,6 +68,7 @@ class Welcome extends CI_Controller {
 				$id = -1;
 			$dataIndex['pole'] = $this->polesManager->poles_get_info($id);
 			$dataIndex['sous_poles'] = $this->polesManager->poles_get_children($id);
+			$dataIndex['ind_noms'] = $this->indNomsManager->ind_get_list($id);
 			if($id <= 0)
 				$dataIndex['orphelins'] = $this->polesManager->poles_get_orphans();
 			array_unshift($this->data['views'], array('Home/index', $dataIndex) );
